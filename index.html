@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Stranger Things Fan Lab – Accueil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Mini hawkins Stranger Things pour démontrer la réécriture d’URL avec Plesk / Apache.">
+    <link rel="icon" type="image/svg+xml" href="/hawkins/assets/favicon.svg">
+    <link rel="stylesheet" href="/hawkins/assets/style.css">
+</head>
+
+<body class="theme-dark">
+    <header class="site-header">
+        <div class="logo">
+            <span class="logo-main">Stranger Things Fan Lab</span>
+            <span class="logo-sub">Démo réécriture d’URL avec Plesk</span>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="/hawkins/">Accueil</a></li>
+                <li><a href="/hawkins/personnages/">Personnages</a></li>
+                <li><a href="/hawkins/lieux/">Lieux & univers</a></li>
+                <li><a href="/hawkins/contact/">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="site-main">
+
+        <section class="hero">
+            <div class="hero-text">
+                <p class="hero-tag">Support de cours</p>
+                <h1>Bienvenue dans le <span>Fan Lab</span> de Stranger Things</h1>
+                <p>
+                    Ce mini site te permet de comprendre comment fonctionne la réécriture d’URL
+                    avec Plesk / Apache (<code>mod_rewrite</code>).
+                </p>
+                <ul class="hero-list">
+                    <li>Les fichiers réels sont rangés dans <code>/strangerthings/</code></li>
+                    <li>Les URLs visibles sont propres en <code>/hawkins/…</code></li>
+                    <li>Le tout est piloté par des règles dans <code>.htaccess</code></li>
+                </ul>
+
+                <div class="hero-links">
+                    <a class="btn-primary" href="/hawkins/personnages/">Voir les personnages</a>
+                    <a class="btn-secondary" href="/hawkins/lieux/">Explorer les lieux</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="/hawkins/assets/images/hero-accueil.jpg"
+                    alt="Hacker années 80 entouré d'ordinateurs rétro dans une ambiance néon">
+            </div>
+        </section>
+
+        <section class="code-demo">
+            <img src="/hawkins/assets/images/hawkings_card.png"
+                alt="Terminal rétro affichant des données du laboratoire de Hawkins"
+                style="width:100%;border-radius:12px;margin-bottom:14px;">
+            <h2>Exemple de réécriture d’URL</h2>
+            <p>Regarde comment une règle de réécriture transforme l’URL :</p>
+            <pre><code># URL vue par l’utilisateur
+/hawkins/personnages/      →   /strangerthings/personnages.html
+
+# Dans .htaccess
+RewriteRule ^hawkins/personnages/?$ /strangerthings/personnages.html [L]
+</code></pre>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>© Stranger Things Fan Lab – Site pédagogique pour illustrer la réécriture d’URL (Plesk / Apache).</p>
+    </footer>
+</body>
+
+</html>
