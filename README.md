@@ -53,6 +53,9 @@ RewriteEngine On
 # Le fichier réel est :   /strangerthings/assets/style.css
 RewriteRule ^hawkins/assets/style\.css$ /strangerthings/assets/style.css [L]
 
+# Favicon
+RewriteRule ^hawkins/assets/favicon\.svg$ /strangerthings/assets/favicon.svg [L]
+
 # Images
 # Toutes les images dans /hawkins/assets/images/ pointent vers /strangerthings/assets/images/
 RewriteRule ^hawkins/assets/images/(.+)$ /strangerthings/assets/images/$1 [L]
@@ -79,10 +82,24 @@ RewriteRule ^hawkins/personnages/?$ /strangerthings/personnages.html [L]
 | `/strangerthings/personnages.html` | Le fichier réel que le serveur va charger |
 | `[L]` | Flag "Last" — Apache arrête de chercher d'autres règles après celle-ci |
 
+### Pourquoi réécrire aussi les assets (CSS, images, favicon) ?
+
+La réécriture ne concerne pas que les pages HTML. Si ton HTML reference `/hawkins/assets/style.css`, le navigateur va demander ce fichier au serveur. Mais ce chemin n'existe pas physiquement — le vrai fichier est dans `/strangerthings/assets/style.css`.
+
+Sans règle de réécriture pour les assets, tu obtiens une **erreur 404** sur le CSS, les images et le favicon : ton site s'affiche sans style, sans images et sans icône d'onglet.
+
+Tu peux le vérifier toi-même :
+1. Commente la règle du CSS dans le `.htaccess` (mets un `#` devant)
+2. Recharge la page — tu verras le HTML brut, sans aucune mise en forme
+3. Ouvre les DevTools (F12 > Console) — tu verras l'erreur 404 sur `style.css`
+
+C'est la même logique pour les images (`(.+)$` capture n'importe quel nom de fichier dans le dossier) et le favicon.
+
 ### Ce que tu dois retenir
 
 - `^` = début de l'URL, `$` = fin de l'URL. Ensemble, ils garantissent une correspondance **exacte**.
 - `/?` = le slash final est **optionnel**. Donc `/hawkins/personnages` et `/hawkins/personnages/` fonctionnent tous les deux.
+- `(.+)` = capture **un ou plusieurs caractères**. Ca permet de réécrire tout un dossier d'un coup sans lister chaque fichier.
 - `[L]` = si cette règle matche, Apache **s'arrête là** et ne teste pas les règles suivantes.
 - `RewriteEngine On` doit apparaître **une seule fois**, en haut du fichier.
 
